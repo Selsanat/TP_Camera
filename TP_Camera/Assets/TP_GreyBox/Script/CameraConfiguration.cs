@@ -11,6 +11,7 @@ public struct CameraConfiguration
     public Vector3 pivot;
     public float distance;
     public float fieldOfView;
+    public float speed;
 
     public Quaternion GetRotation()
     {

@@ -1,12 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
 	public Camera _camera;  
-    private CameraConfiguration _configuration;  
+    private CameraConfiguration _targetConfiguration;
+    private CameraConfiguration _currentConfiguration;
 
     private List<AView> _activeViews = new List<AView>();  
 
@@ -40,20 +42,27 @@ public class CameraController : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        _targetConfiguration = ComputeAverage();
+        _currentConfiguration = ComputeAverage();
+    }
+
     private void Update()
     {
-        _configuration = ComputeAverage();  
+        print(" Target = "+_targetConfiguration.GetPosition());
+        print(" Current = " + _currentConfiguration.GetPosition());
+        _targetConfiguration = ComputeAverage();  
         ApplyConfiguration();  
     }
 
     private void ApplyConfiguration()
     {
-        if (_camera == null || _configuration.Equals(null))
+        if (_camera == null || _targetConfiguration.Equals(null))
             return;
-
-        _camera.transform.position = _configuration.GetPosition();
-        _camera.transform.rotation = _configuration.GetRotation();
-        _camera.fieldOfView = _configuration.fieldOfView;
+        _camera.transform.position = _currentConfiguration.GetPosition() + (_targetConfiguration.GetPosition()- _currentConfiguration.GetPosition()) * _targetConfiguration.speed * Time.deltaTime;
+        _camera.transform.rotation = _targetConfiguration.GetRotation();
+        _camera.fieldOfView = _targetConfiguration.fieldOfView;
     }
 
     public CameraConfiguration ComputeAverage()

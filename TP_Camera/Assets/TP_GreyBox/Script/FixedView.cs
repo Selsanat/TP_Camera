@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class FixedView : AView
@@ -8,7 +9,7 @@ public class FixedView : AView
     public float pitch = 10;
     public float roll = 10;
     public float fov = 10;
-
+    public float speed = 1;
     public override CameraConfiguration GetConfiguration()
     {
         CameraConfiguration config = new CameraConfiguration();
@@ -17,7 +18,8 @@ public class FixedView : AView
         config.roll = roll;
         config.fieldOfView = fov;
         config.pivot = transform.position;  
-        config.distance = 0;  
+        config.distance = 0;
+        config.speed = speed;
         print(" FIxed view : yaw : " + yaw + " pitch : " + pitch + " roll : " + roll + " fov : " + fov);
         return config;
     }
