@@ -112,14 +112,14 @@ public class CameraController : MonoBehaviour
 
     public float ComputeAverageYaw()
     {
-	    Vector2 sum = Vector2.zero;
-	    foreach (AView view in _activeViews)
-	    {
-		    CameraConfiguration config = view.GetConfiguration();
-		    sum += new Vector2(Mathf.Cos(config.yaw * Mathf.Deg2Rad), Mathf.Sin(config.yaw * Mathf.Deg2Rad)) * view.weight;
-	    }
-
-	    return sum.magnitude > 0 ? Vector2.SignedAngle(Vector2.right, sum) : 0f;
+        Vector2 sum = Vector2.zero;
+        foreach (AView view in _activeViews)
+        {
+            CameraConfiguration config = view.GetConfiguration();
+            sum += new Vector2(Mathf.Cos(config.yaw * Mathf.Deg2Rad),
+            Mathf.Sin(config.yaw * Mathf.Deg2Rad)) * view.weight;
+        }
+        return Vector2.SignedAngle(Vector2.right, sum);
     }
 }
 
