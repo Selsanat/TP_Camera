@@ -11,14 +11,9 @@ public struct CameraConfiguration
     public Vector3 pivot;
     public float distance;
     public float fieldOfView;
-    public float speed;
 
     public Quaternion GetRotation()
     {
-        pitch = Mathf.Clamp(pitch, -89f, 89f);  // Limiter l'inclinaison entre -89 et 89 degrés
-        yaw = Mathf.Repeat(yaw, 360f);  // Boucle les valeurs entre 0 et 360 degrés
-        roll = Mathf.Repeat(roll, 360f);
-        Debug.Log("Yaw : " + yaw + " Pitch : " + pitch + " Roll : " + roll);
         return Quaternion.Euler(pitch, yaw, roll);
     }
     public Vector3 GetPosition()

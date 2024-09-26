@@ -9,7 +9,7 @@ public class CameraController : MonoBehaviour
 	public Camera _camera;  
     private CameraConfiguration _targetConfiguration;
     private CameraConfiguration _currentConfiguration;
-
+    public float InterpolationSpeed = 1;
     private List<AView> _activeViews = new List<AView>();  
 
     private static CameraController _instance;
@@ -50,20 +50,28 @@ public class CameraController : MonoBehaviour
 
     private void Update()
     {
-        print(" Target = "+_targetConfiguration.GetPosition());
-        print(" Current = " + _currentConfiguration.GetPosition());
+        print(" Target = "+_targetConfiguration.GetRotation());
+        print(" Current = " + _currentConfiguration.GetRotation());
         _targetConfiguration = ComputeAverage();  
         ApplyConfiguration();  
     }
 
+    private void ComputeCurrentConfiguration()
+    {
+        _currentConfiguration.pivot += (_targetConfiguration.pivot - _currentConfiguration.pivot) * Time.deltaTime * InterpolationSpeed;
+        _currentConfiguration.pitch += (_targetConfiguration.pitch - _currentConfiguration.pitch) * Time.deltaTime * InterpolationSpeed;
+        _currentConfiguration.yaw += (_targetConfiguration.yaw - _currentConfiguration.yaw) * Time.deltaTime * InterpolationSpeed;
+        _currentConfiguration.roll += (_targetConfiguration.roll - _currentConfiguration.roll) * Time.deltaTime * InterpolationSpeed;
+        _currentConfiguration.fieldOfView += (_targetConfiguration.fieldOfView - _currentConfiguration.fieldOfView) * Time.deltaTime*InterpolationSpeed;
+    }
     private void ApplyConfiguration()
     {
         if (_camera == null || _targetConfiguration.Equals(null))
             return;
-
-        _camera.transform.position = _camera.transform.position + (_targetConfiguration.GetPosition()- _camera.transform.position) * _targetConfiguration.speed * Time.deltaTime;
-        _camera.transform.rotation = _targetConfiguration.GetRotation();
-        _camera.fieldOfView = _targetConfiguration.fieldOfView;
+        ComputeCurrentConfiguration();
+        _camera.transform.position = _currentConfiguration.GetPosition();
+        _camera.transform.rotation = _currentConfiguration.GetRotation();
+        _camera.fieldOfView = _currentConfiguration.fieldOfView;
     }
 
     public CameraConfiguration ComputeAverage()

@@ -9,7 +9,6 @@ public class FixedView : AView
     public float pitch = 90;
     public float roll = 0;
     public float fov = 60;
-    public float speed = 1;
     public override CameraConfiguration GetConfiguration()
     {
         CameraConfiguration config = new CameraConfiguration();
@@ -19,8 +18,6 @@ public class FixedView : AView
         config.fieldOfView = fov;
         config.pivot = transform.position;  
         config.distance = 0;
-        config.speed = speed;
-        print(" FIxed view : yaw : " + yaw + " pitch : " + pitch + " roll : " + roll + " fov : " + fov);
         return config;
     }
 }
