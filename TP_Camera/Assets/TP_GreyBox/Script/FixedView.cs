@@ -5,10 +5,10 @@ using UnityEngine;
 
 public class FixedView : AView
 {
-    public float yaw = 10;
-    public float pitch = 10;
-    public float roll = 10;
-    public float fov = 10;
+    public float yaw = 0;
+    public float pitch = 90;
+    public float roll = 0;
+    public float fov = 60;
     public float speed = 1;
     public override CameraConfiguration GetConfiguration()
     {
