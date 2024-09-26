@@ -72,3 +72,7 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
 TP_Camera/obj/Debug/
+
+TP_Camera/Library/
+
+TP_Camera/Logs/
