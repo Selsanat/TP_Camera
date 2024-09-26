@@ -18,6 +18,7 @@ public class FixedView : AView
         config.fieldOfView = fov;
         config.pivot = transform.position;  
         config.distance = 0;  
+        print(" FIxed view : yaw : " + yaw + " pitch : " + pitch + " roll : " + roll + " fov : " + fov);
         return config;
     }
 }
