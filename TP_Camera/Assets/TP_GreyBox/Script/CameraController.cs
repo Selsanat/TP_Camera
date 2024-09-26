@@ -60,7 +60,8 @@ public class CameraController : MonoBehaviour
     {
         if (_camera == null || _targetConfiguration.Equals(null))
             return;
-        _camera.transform.position = _currentConfiguration.GetPosition() + (_targetConfiguration.GetPosition()- _currentConfiguration.GetPosition()) * _targetConfiguration.speed * Time.deltaTime;
+
+        _camera.transform.position = _camera.transform.position + (_targetConfiguration.GetPosition()- _camera.transform.position) * _targetConfiguration.speed * Time.deltaTime;
         _camera.transform.rotation = _targetConfiguration.GetRotation();
         _camera.fieldOfView = _targetConfiguration.fieldOfView;
     }
