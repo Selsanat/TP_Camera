@@ -50,8 +50,6 @@ public class CameraController : MonoBehaviour
 
     private void Update()
     {
-        print(" Target = "+_targetConfiguration.GetRotation());
-        print(" Current = " + _currentConfiguration.GetRotation());
         _targetConfiguration = ComputeAverage();  
         ApplyConfiguration();  
     }
